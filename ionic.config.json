@@ -1,0 +1,7 @@
+{
+  "name": "ShapeCheck",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
