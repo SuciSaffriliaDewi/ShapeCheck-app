@@ -1,0 +1,609 @@
+:host {
+  /* Variabel Mode Terang */
+  --page-bg: #f6f6f6;
+  --card-bg-default: #f6f6f6;
+  --text-main: #1a1a1a;
+  --text-sub: #424242;
+  --ion-color-primary: #1a1a1a;
+  --chip-bg: rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', 'Manrope', sans-serif;
+  /* Pastikan font elegan */
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    /** * VARIABEL MODE GELAP 
+     * Background: Biru Tua #001f3f
+     */
+    --page-bg: #000000;
+    --toolbar-bg: #0f0f0f;
+    --card-bg-default: #22374d; // Biru sedikit lebih terang dari bg
+    --text-main: #fafafa;
+    --text-sub: #a2ced8;
+    --ion-color-primary: #a2ced8; // Aksen cerah di mode gelap
+    --chip-bg: rgba(255, 255, 255, 0.089);
+  }
+}
+
+ion-content {
+  --background: var(--page-bg);
+}
+
+ion-toolbar {
+  --background: var(--page-bg);
+  --color: var(--text-main);
+}
+
+
+.bento-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 32px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+  padding-top: 8px;
+
+  .gender-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: var(--chip-bg);
+    color: --text-main;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+  }
+
+  .main-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-sub);
+    margin: 0;
+  }
+}
+
+.bento-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+// Empty state
+.empty-card-style {
+  background: var(--toolbar-bg);
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  .card-content {
+    padding: 40px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .empty-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--page-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 28px;
+      color: #f4426e;
+    }
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-sub);
+    margin: 0;
+  }
+
+  p {
+    font-size: 13px;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.btn-action-primary {
+  margin-top: 8px;
+  padding: 12px 28px;
+  background: #042e30;
+  color: #fafafa;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+// History cards
+.bento-card {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+  // Warna pria — biru
+  &.card-male {
+    background: var(--toolbar-bg);
+
+    .text-wrap h3 {
+      color: var(--text-main);
+    }
+
+    .date-label {
+      color: var(--text-sub);
+    }
+
+    .mode-badge {
+      background: rgba(70, 70, 70, 0.199);
+      color: var(--text-main);
+    }
+
+    .ratio-pill {
+      background: rgba(46, 46, 46, 0.452);
+      color: var(--text-sub);
+    }
+
+    .btn-delete-item {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-delete-item:hover {
+      color: #ff6b6b;
+    }
+  }
+
+  // Warna wanita — merah/pink
+  &.card-female {
+    background: var(--toolbar-bg);
+
+    .text-wrap h3 {
+      color: var(--text-main);
+    }
+
+    .date-label {
+      color: var(--text-sub);
+    }
+
+    .mode-badge {
+      background: rgba(70, 70, 70, 0.199);
+      color: var(--text-main);
+    }
+
+    .btn-delete-item {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-delete-item:hover {
+      color: #ff6b6b;
+    }
+  }
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.emoji-wrap {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Jarak antara tag gender dan tombol hapus */
+  flex-shrink: 0;
+  /* Mencegah area ini menyusut */
+}
+
+.gender-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 99px;
+
+  ion-icon {
+    font-size: 12px;
+  }
+
+  &.male {
+    background: rgba(79, 195, 247, 0.2);
+    color: #4fc3f7;
+  }
+
+  &.female {
+    background: rgba(244, 143, 177, 0.2);
+    color: #f48fb1;
+  }
+}
+
+.btn-delete-item {
+  /* 1. Reset Dasar & Pastikan Tampilan */
+  background: transparent !important;
+  border: none !important;
+  display: flex !important; // Memastikan elemen tidak tersembunyi
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  cursor: pointer;
+
+  /* 2. Warna & Transparansi Default (Bagian Terpenting) */
+  // Paksa warna merah atau warna teks yang kontras
+  color: #ff5a5a !important;
+  opacity: 1 !important; // Pastikan tidak 0 (transparan)
+  visibility: visible !important;
+
+  /* 3. Posisi */
+  position: relative;
+  z-index: 99; // Pastikan berada di atas semua lapisan kartu/overlay
+
+  transition: all 0.2s ease-in-out;
+  -webkit-tap-highlight-color: transparent;
+
+  ion-icon {
+    font-size: 24px; // Perbesar agar mudah dilihat
+    display: block;
+  }
+
+  /* Efek saat interaksi */
+  &:hover {
+    transform: scale(1.2);
+    color: #ff0000 !important;
+  }
+
+  &:active {
+    transform: scale(0.9);
+    opacity: 0.7 !important;
+  }
+}
+
+.text-wrap {
+  margin-bottom: 10px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+}
+
+.mode-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 99px;
+  margin-bottom: 6px;
+}
+
+.date-label {
+  font-size: 11px;
+  margin: 0;
+}
+
+.ratio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.ratio-pill {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+.tap-hint {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; // Ini untuk memindahkan seluruh konten ke kanan
+  text-align: right; // Memastikan arah teks mengikuti
+  gap: 4px;
+  margin-top: 10px;
+  width: 100%; // Memastikan container mengambil ruang penuh agar bisa rata kanan
+
+  ion-icon {
+    font-size: 12px;
+    color: var(--text-sub);
+    // (Opsional) Gunakan jika ingin Ikon di paling kanan setelah teks
+  }
+
+  span {
+    font-size: 11px;
+    color: var(--text-sub);
+    // (Opsional) Gunakan jika ingin Teks di sebelah kiri Ikon
+  }
+}
+
+// ===== MODAL DETAIL =====
+.modal-content {
+  --background: var(--page-bg);
+}
+
+.modal-body {
+  padding: 16px 20px 48px;
+}
+
+.modal-header-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 20px;
+
+  &.modal-card-male {
+    background: rgba(201, 201, 201, 0.178);
+  }
+
+  &.modal-card-female {
+    background: rgba(201, 201, 201, 0.178);
+  }
+}
+
+.modal-emoji {
+  font-size: 40px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.modal-shape {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 6px;
+}
+
+.modal-meta {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.modal-badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: #a0a0a05b;
+  color: var(--text-sub);
+}
+
+.modal-date {
+  font-size: 11px;
+  color: var(--text-sub);
+  margin: 0;
+}
+
+.modal-section {
+  margin-bottom: 8px;
+}
+
+.modal-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 10px;
+
+  ion-icon {
+    font-size: 16px;
+    color: var(--text-sub);
+  }
+}
+
+.modal-desc {
+  font-size: 13px;
+  color: var(--text-sub);
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+
+.modal-ratio-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.modal-ratio-item {
+  flex: 1;
+  background: rgba(255, 249, 170, 0.603);
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+
+  .modal-ratio-val {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .modal-ratio-lbl {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-sub);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+}
+
+.modal-stats-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.modal-stat {
+  flex: 1;
+  background: rgba(255, 249, 170, 0.603);
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+
+  .modal-stat-val {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .modal-stat-lbl {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-sub);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+}
+
+.modal-rec {
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 10px;
+
+  h5 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 0 10px;
+
+    ion-icon {
+      font-size: 14px;
+    }
+  }
+
+  &.positive {
+    background: rgba(120, 163, 173, 0.08);
+    border: 1px solid rgba(120, 163, 173, 0.2);
+
+    h5 {
+      color: #2d5a64;
+    }
+  }
+
+  &.negative {
+    background: rgba(173, 120, 120, 0.08);
+    border: 1px solid rgba(173, 120, 120, 0.08);
+
+    h5 {
+      color: #ba1a1a;
+    }
+  }
+}
+
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.modal-tag {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 99px;
+
+  &.cocok {
+    background: rgba(134, 196, 255, 0.39);
+    color: var(--text-sub);
+  }
+}
+
+.modal-avoid {
+  padding-left: 18px;
+  margin: 0;
+
+  li {
+    background: rgba(236, 100, 100, 0.226);
+    padding: 5px 10px;
+    border-radius: 99px;
+    line-height: 1.5;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+
+    &::marker {
+      color: #ba1a1a;
+    }
+  }
+}
+
+.modal-divider {
+  height: 1px;
+  background: rgba(128, 128, 128, 0.12);
+  margin: 16px 0;
+}
+
+.modal-footer-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--chip-bg);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 20px;
+
+  ion-icon {
+    font-size: 18px;
+    color: var(--text-sub);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  p {
+    font-size: 12px;
+    color: var(--text-sub);
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+  }
+}

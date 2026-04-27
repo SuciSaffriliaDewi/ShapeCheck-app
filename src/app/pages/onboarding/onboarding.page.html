@@ -1,0 +1,29 @@
+<ion-content class="onboarding-content">
+  <div class="container">
+
+    <!-- Tombol skip -->
+    <div class="skip-wrap">
+      <button class="btn-skip" (click)="skip()" *ngIf="currentSlide < slides.length - 1">
+        Lewati
+      </button>
+    </div>
+
+    <!-- Slide content -->
+    <div class="slide-content">
+      <div class="icon-wrap">{{ slides[currentSlide].icon }}</div>
+      <h1>{{ slides[currentSlide].title }}</h1>
+      <p>{{ slides[currentSlide].desc }}</p>
+    </div>
+
+    <!-- Dot indicator -->
+    <div class="dots">
+      <span class="dot" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide">
+      </span>
+    </div>
+
+    <!-- Tombol next / mulai -->
+    <button class="btn-next" (click)="next()">
+      {{ currentSlide < slides.length - 1 ? 'Selanjutnya' : 'Mulai Sekarang' }} </button>
+
+  </div>
+</ion-content>

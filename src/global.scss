@@ -35,3 +35,35 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+// Padding bawah agar konten tidak tertutup bottom nav
+ion-content {
+  --padding-bottom: 80px;
+}
+
+body.dark {
+  --ion-background-color: #121212;
+  --ion-background-color-rgb: 18, 18, 18;
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255, 255, 255;
+  --ion-card-background: #1e1e1e;
+  --ion-item-background: #1e1e1e;
+  --ion-toolbar-background: #1e1e1e;
+  --ion-tab-bar-background: #1e1e1e;
+
+  .bottom-nav {
+    background: #1e1e1e;
+    border-top-color: #2c2c2c;
+  }
+
+  ion-content {
+    --background: #121212;
+  }
+
+  .settings-card,
+  .history-card,
+  .gender-card,
+  .card {
+    background: #1e1e1e !important;
+  }
+}

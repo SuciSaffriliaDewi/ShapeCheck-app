@@ -1,0 +1,188 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ getModeLabel() }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showHowTo()">
+        <ion-icon name="help-circle-outline" style="font-size: 24px; color: #aaa;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding bento-wrapper">
+
+    <header class="page-header">
+      <h1 class="main-title">Lengkapi Data <span class="accent">Tubuhmu</span></h1>
+      <p class="subtitle">Gunakan satuan <strong>centimeter (cm)</strong> untuk hasil akurat.</p>
+    </header>
+
+    <div class="form-container">
+
+      <div class="bento-card bg-blue" *ngIf="mode === 'bodyshape' || mode === 'full'">
+        <div class="card-header">
+          <ion-icon name="shirt-outline"></ion-icon>
+          <span>Body Shape</span>
+        </div>
+
+        <div class="input-grid">
+          <div class="input-group">
+            <label>Lebar Bahu</label>
+            <input type="number" [(ngModel)]="bahu" name="bahu" placeholder="40" class="custom-input">
+          </div>
+          <div class="input-group">
+            <label>Lingkar Dada</label>
+            <input type="number" [(ngModel)]="dada" name="dada" placeholder="90" class="custom-input">
+          </div>
+          <div class="input-group">
+            <label>Lingkar Pinggang</label>
+            <input type="number" [(ngModel)]="pinggang" name="pinggang" placeholder="70" class="custom-input">
+          </div>
+          <div class="input-group">
+            <label>Lingkar Pinggul</label>
+            <input type="number" [(ngModel)]="hip" name="hip" placeholder="95" class="custom-input">
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card bg-gold" *ngIf="mode === 'proporsi' || mode === 'full'">
+        <div class="card-header">
+          <ion-icon name="resize-outline"></ion-icon>
+          <span>Proporsi Torso</span>
+        </div>
+
+        <div class="input-grid">
+          <div class="input-group full-width">
+            <label>Tinggi Badan</label>
+            <input type="number" [(ngModel)]="tinggiBadan" name="tb" placeholder="165" class="custom-input">
+          </div>
+          <div class="input-group">
+            <label>Panjang Torso</label>
+            <input type="number" [(ngModel)]="panjangTorso" name="pt" placeholder="45" class="custom-input">
+          </div>
+          <div class="input-group">
+            <label>Panjang Kaki</label>
+            <input type="number" [(ngModel)]="panjangKaki" name="pk" placeholder="90" class="custom-input">
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <button class="btn-analyze" [disabled]="!isFormValid()" (click)="analyze()"
+          [ngClass]="{'btn-disabled': !isFormValid()}">
+          Analisis Sekarang
+        </button>
+        <p class="privacy-note">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          Data diproses secara privat
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal Cara Penggunaan -->
+  <ion-modal [isOpen]="showHowToModal" (didDismiss)="showHowToModal = false" [breakpoints]="[0, 0.75]"
+    [initialBreakpoint]="0.75">
+    <ng-template>
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-title>Panduan Pengukuran</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="showHowToModal = false">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <div class="howto-body">
+
+          <!-- Body Shape Guide -->
+          <div *ngIf="mode === 'bodyshape' || mode === 'full'">
+            <div class="howto-section-title">
+              <ion-icon name="shirt-outline"></ion-icon>
+              <span>Panduan Body Shape</span>
+            </div>
+            <div class="measure-list">
+              <div class="measure-item">
+                <span class="measure-num">1</span>
+                <div>
+                  <strong>Lebar bahu</strong>
+                  <p>Ukur dari ujung bahu kiri ke kanan secara horizontal. Berdiri tegak, ukur dari tulang bahu kiri
+                    hingga kanan.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">2</span>
+                <div>
+                  <strong>Lingkar dada / bust</strong>
+                  <p>Lingkarkan pita ukur di bagian dada yang paling menonjol / paling lebar.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">3</span>
+                <div>
+                  <strong>Lingkar pinggang</strong>
+                  <p>Ukur di bagian pinggang yang paling ramping, biasanya 2–3 cm di atas pusar.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">4</span>
+                <div>
+                  <strong>Lingkar pinggul / hip</strong>
+                  <p>Ukur melingkar di bagian pinggul yang paling lebar, biasanya setinggi tulang panggul.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-divider" *ngIf="mode === 'full'"></div>
+
+          <!-- Proporsi Guide -->
+          <div *ngIf="mode === 'proporsi' || mode === 'full'">
+            <div class="howto-section-title">
+              <ion-icon name="resize-outline"></ion-icon>
+              <span>Panduan Proporsi Torso</span>
+            </div>
+            <div class="measure-list">
+              <div class="measure-item">
+                <span class="measure-num">1</span>
+                <div>
+                  <strong>Tinggi badan</strong>
+                  <p>Ukur dari telapak kaki hingga puncak kepala. Berdiri tegak tanpa alas kaki.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">2</span>
+                <div>
+                  <strong>Panjang torso</strong>
+                  <p>Ukur dari tulang leher bawah (pangkal bahu) hingga garis pinggang.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">3</span>
+                <div>
+                  <strong>Panjang kaki</strong>
+                  <p>Ukur dari lantai hingga titik pinggang (garis pinggang alami).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="howto-tip">
+            <ion-icon name="bulb-outline"></ion-icon>
+            <p>Gunakan <strong>pita ukur fleksibel</strong> dan minta bantuan orang lain untuk hasil yang lebih akurat.
+              Semua ukuran dalam <strong>sentimeter (cm)</strong>.</p>
+          </div>
+
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

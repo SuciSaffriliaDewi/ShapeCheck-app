@@ -1,0 +1,492 @@
+:host {
+  /** * VARIABEL DEFAULT (MODE TERANG) 
+   * Background: Cream #F5EFE0
+   */
+  --page-bg: #f6f6f6;
+  --toolbar-bg: #fafafa;
+  --card-bg-default: #ffffff;
+  --text-main: #1A1A1A;
+  --text-sub: #424242;
+  --ion-color-primary: #1A1A1A; // Aksen biru tua di mode terang
+  --chip-bg: rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    /** * VARIABEL MODE GELAP 
+     * Background: Biru Tua #001f3f
+     */
+    --page-bg: #000000;
+    --toolbar-bg: #0f0f0f;
+    --card-bg-default: #0f0f0f; // Biru sedikit lebih terang dari bg
+    --text-main: #f6f6f6;
+    --text-sub: #a2ced8;
+    --ion-color-primary: #f6f6f6; // Aksen cerah di mode gelap
+    --chip-bg: rgba(255, 255, 255, 0.05);
+  }
+}
+
+// Terapkan variabel ke komponen Ionic
+ion-content {
+  --background: var(--page-bg);
+}
+
+ion-toolbar {
+  --background: var(--page-bg);
+  --color: var(--text-main);
+}
+
+.bento-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* --- Profile Header Center Aligned --- */
+.profile-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Kunci untuk posisi tengah
+  text-align: center;
+  margin: 2rem 0 3rem;
+
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: var(--chip-bg);
+    color: var(--text-main);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+  }
+
+
+  .avatar-wrapper-center {
+    position: relative;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.2s active;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    .icon-circle {
+      width: 100px; //             okpojiopUkuran sedikit lebih besar agar menonjol di tengah
+      height: 100px;
+      background: linear-gradient(135deg, #a4b5fc, #fca0cb);
+      color: #fafafa;
+      border-radius: 50px; // Squircle yang lebih tegas
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0);
+    }
+
+    .edit-badge {
+      position: absolute;
+      bottom: -4px;
+      right: -4px;
+      background: linear-gradient(135deg, #a4b5fc, #fca0cb);
+      color: var(--page-bg);
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      border: 3px solid var(--page-bg);
+    }
+  }
+
+  .user-info-center {
+    cursor: pointer;
+
+    .user-name {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 0;
+      letter-spacing: -1.5px;
+    }
+
+    .user-status {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 6px;
+      opacity: 0.8;
+
+      ion-icon {
+        font-size: 0.9rem;
+        margin-left: 4px;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+/* Biarkan menu-container dan bento-list tetap menggunakan kode sebelumnya 
+   karena list menu lebih rapi tetap rata kiri */
+
+/* --- Bento List --- */
+.menu-container {
+  margin-bottom: 24px;
+
+  .group-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 10px 12px;
+    opacity: 0.7;
+  }
+}
+
+.bento-list {
+  /* Gunakan warna kartu yang sedikit lebih kontras dari background */
+  background: var(--toolbar-bg);
+  border-radius: 20px;
+  overflow: hidden;
+
+  /* Ubah border agar lebih terlihat tapi tetap halus */
+  border: 1px solid rgba(var(--text-dark), 0.08);
+
+  /* Aktifkan shadow tipis (ubah angka 0 di akhir jadi 0.04 - 0.06) */
+  /* Ini yang membuat kartu terlihat 'mengambang' di atas background */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0);
+
+  margin-bottom: 24px;
+
+  .menu-item {
+    width: 100%;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(var(--text-main), 0.05);
+    border-bottom: 1px solid rgba(var(--text-main), 0.5);
+
+    &:active {
+      background: rgba(0, 0, 0, 0.185);
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .item-start {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      .icon-box {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+
+        &.purple {
+          background: var(--toolbar-bg);
+          color: #8a4fff;
+        }
+
+        &.orange {
+          background: var(--toolbar-bg);
+          color: #ff9500;
+        }
+
+        &.red {
+          background: var(--toolbar-bg);
+          color: #ff5a5a;
+        }
+
+        &.teal {
+          background: var(--toolbar-bg);
+          color: #00bcd4;
+        }
+      }
+
+      .text-group {
+        text-align: left;
+
+        .label {
+          display: block;
+          font-weight: 700;
+          color: var(--text-dark);
+          font-size: 0.95rem;
+          margin-bottom: 4px;
+        }
+
+        .sub-label {
+          font-size: 0.75rem;
+          color: var(--text-muted);
+          font-weight: 500;
+        }
+
+        .text-danger {
+          color: #ff5a5a;
+        }
+      }
+    }
+
+    .chevron {
+      color: var(--text-muted);
+      opacity: 0.3;
+    }
+  }
+}
+
+/* --- Footer & Modal Handle --- */
+.legal-footer {
+  text-align: center;
+  padding: 24px 0;
+
+  .heart-red {
+    color: #ff5a5a;
+  }
+
+  .version-tag {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+}
+
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  background: #ddd;
+  border-radius: 10px;
+  margin: 12px auto;
+}
+
+.about-container {
+  padding: 20px;
+  text-align: center;
+
+  .about-logo {
+    width: 65px;
+    height: 65px;
+    background: var(--primary);
+    color: white;
+    border-radius: 20px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-weight: 800;
+    color: var(--text-dark);
+  }
+
+  .about-card {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+
+    .f-item {
+      padding: 14px;
+      background: var(--card-bg);
+      border-radius: 16px;
+
+      ion-icon {
+        font-size: 1.4rem;
+        color: var(--primary);
+        margin-bottom: 4px;
+      }
+
+      span {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--text-dark);
+      }
+    }
+  }
+}
+
+// Warna icon box biru (tambahan)
+.icon-box.blue {
+  background: var(--toolbar-bg);
+  color: #4285f4;
+}
+
+// Modal how-to
+.howto-container {
+  padding: 16px 20px 48px;
+}
+
+.howto-block {
+  margin-bottom: 4px;
+}
+
+.howto-block-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+
+  span {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+}
+
+.howto-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+
+  &.purple {
+    background: var(--toolbar-bg);
+    color: #8a4fff;
+  }
+
+  &.orange {
+    background: var(--toolbar-bg);
+    color: #ff9500;
+  }
+
+  &.teal {
+    background: var(--toolbar-bg);
+    color: #00bcd4;
+  }
+
+  &.green {
+    background: var(--toolbar-bg);
+    color: #2ecc71;
+  }
+}
+
+.howto-steps {
+  padding-left: 4px;
+}
+
+.howto-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  .step-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-sub);
+    flex-shrink: 0;
+    margin-top: 7px;
+    opacity: 0.5;
+  }
+
+  p {
+    font-size: 13px;
+    color: var(--text-sub);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.measure-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 4px;
+}
+
+.measure-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  .measure-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--text-main);
+    color: var(--page-bg);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  p {
+    font-size: 12px;
+    color: var(--text-sub);
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.howto-divider {
+  height: 1px;
+  background: rgba(128, 128, 128, 0.12);
+  margin: 16px 0;
+}
+
+.howto-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(249, 168, 37, 0.1);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 16px;
+
+  ion-icon {
+    font-size: 20px;
+    color: #f9a825;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  p {
+    font-size: 13px;
+    color: var(--text-sub);
+    line-height: 1.6;
+    margin: 0;
+  }
+}

@@ -1,0 +1,121 @@
+:host {
+  /* Variabel Mode Terang */
+  --page-bg: #f6f6f6;
+  --card-bg-default: #f6f6f6;
+  --text-main: #1a1a1a;
+  --text-sub: #424242;
+  --ion-color-primary: #1a1a1a;
+  --chip-bg: rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', 'Manrope', sans-serif;
+  /* Pastikan font elegan */
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    /* Variabel Mode Gelap */
+    --page-bg: #000000;
+    --card-bg-default: #0f0f0f;
+    --text-main: #ffffff;
+    --text-sub: #a2ced8;
+    --ion-color-primary: #ffffff;
+    --chip-bg: rgba(255, 255, 255, 0.05);
+  }
+}
+
+ion-content {
+  --background: var(--page-bg);
+}
+
+.bottom-nav-wrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 20px 16px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 999;
+  pointer-events: none;
+
+  // Animasi muncul & hilang
+  animation: navFadeIn 0.2s ease;
+}
+
+@keyframes navFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 2;
+    transform: translateY(0);
+  }
+}
+
+.bottom-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--page-bg);
+  border-radius: 24px;
+  padding: 10px 8px;
+  border: 0.5px solid rgba(128, 128, 128, 0.15);
+  box-shadow: 0 -2px 24px rgba(0, 0, 0, 0.08),
+    0 4px 16px rgba(0, 0, 0, 0.06);
+  pointer-events: all;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: all 0.2s ease;
+
+  &:active {
+    transform: scale(0.92);
+  }
+
+  svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: rgba(128, 128, 128, 0.5);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s ease;
+  }
+
+  &.active svg {
+    stroke: var(--text-main, #0a0a0a);
+  }
+}
+
+.nav-lbl {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(128, 128, 128, 0.5);
+  transition: color 0.2s ease;
+  letter-spacing: 0.02em;
+
+  .active & {
+    color: var(--text-main, #0a0a0a);
+  }
+}
+
+.nav-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-main, #0a0a0a);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  .active & {
+    opacity: 1;
+  }
+}

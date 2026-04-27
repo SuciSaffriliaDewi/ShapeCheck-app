@@ -1,0 +1,306 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Pengaturan</ion-title>
+    <ion-buttons slot="end">
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="bento-wrapper">
+
+    <header class="profile-header-center">
+      <div class="badge-pill">
+        <ion-icon name="sparkles"></ion-icon>
+        <ion-label>Profil Pengguna</ion-label>
+      </div>
+
+      <div class="avatar-wrapper-center" (click)="changeProfileIcon()">
+        <div class="icon-circle">
+          <ion-icon [name]="userIcon"></ion-icon>
+        </div>
+        <div class="edit-badge">
+          <ion-icon name="sync-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div class="user-info-center" (click)="editName()">
+        <h1 class="user-name">{{ userName }}</h1>
+        <p class="user-status">
+          Ketuk untuk ubah nama <ion-icon name="create-outline"></ion-icon>
+        </p>
+      </div>
+    </header>
+
+
+
+    <!-- Group Lainnya (Onboarding tetap di sini, terpisah) -->
+    <div class="menu-container">
+      <h3 class="group-label">Lihat Intro Aplikasi</h3>
+      <div class="bento-list">
+
+        <button class="menu-item" (click)="resetOnboarding()">
+          <div class="item-start">
+            <div class="icon-box orange">
+              <ion-icon name="rocket-outline"></ion-icon>
+            </div>
+            <div class="text-group">
+              <span class="label">Ulangi Onboarding</span>
+              <span class="sub-label">Lihat kembali panduan awal</span>
+            </div>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+
+    <div class="menu-container">
+      <h3 class="group-label">Data & Privasi</h3>
+      <div class="bento-list">
+        <button class="menu-item" (click)="clearAllData()">
+          <div class="item-start">
+            <div class="icon-box red">
+              <ion-icon name="trash-outline"></ion-icon>
+            </div>
+            <div class="text-group">
+              <span class="label text-danger">Hapus Semua Data</span>
+              <span class="sub-label">Bersihkan riwayat & profil</span>
+            </div>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="menu-container">
+      <h3 class="group-label">Informasi Aplikasi</h3>
+      <div class="bento-list">
+
+        <button class="menu-item" (click)="showHowTo()">
+          <div class="item-start">
+            <div class="icon-box blue">
+              <ion-icon name="help-circle-outline"></ion-icon>
+            </div>
+            <div class="text-group">
+              <span class="label">Tata Cara Penggunaan</span>
+              <span class="sub-label">Panduan input & baca hasil</span>
+            </div>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </button>
+
+        <button class="menu-item" (click)="showAbout()">
+          <div class="item-start">
+            <div class="icon-box teal">
+              <ion-icon name="information-circle-outline"></ion-icon>
+            </div>
+            <div class="text-group">
+              <span class="label">Tentang ShapeCheck</span>
+              <span class="sub-label">Versi & informasi aplikasi</span>
+            </div>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <footer class="legal-footer">
+      <p>dibuat dengan <ion-icon name="heart" class="heart-red"></ion-icon> oleh ShapeCheck Team</p>
+      <p class="version-tag">Version 1.0.0</p>
+    </footer>
+  </div>
+
+  <ion-modal [isOpen]="showAboutModal" (didDismiss)="showAboutModal = false" [initialBreakpoint]="0.75"
+    [breakpoints]="[0, 0.75, 1]">
+    <ng-template>
+      <div class="modal-handle"></div>
+      <ion-content class="modal-bg">
+        <div class="about-container">
+          <div class="about-logo">
+            <ion-icon name="sparkles"></ion-icon>
+          </div>
+          <h2>ShapeCheck</h2>
+          <div class="version-badge">Version 1.0.0</div>
+
+          <div class="about-card">
+            <p>ShapeCheck adalah asisten cerdas untuk membantu Anda memahami proporsi tubuh secara objektif demi
+              rekomendasi fashion yang lebih personal.</p>
+          </div>
+
+          <div class="feature-grid">
+            <div class="f-item">
+              <ion-icon name="shield-checkmark"></ion-icon>
+              <span>Privasi Aman</span>
+            </div>
+            <div class="f-item">
+              <ion-icon name="flash"></ion-icon>
+              <span>Analisis Cepat</span>
+            </div>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Modal Tata Cara Penggunaan -->
+  <ion-modal [isOpen]="showHowToModal" (didDismiss)="showHowToModal = false" [initialBreakpoint]="0.85"
+    [breakpoints]="[0, 0.85, 1]">
+    <ng-template>
+      <div class="modal-handle"></div>
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-title style="font-size: 16px; font-weight: 700;">Tata Cara Penggunaan</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="showHowToModal = false">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="modal-bg">
+        <div class="howto-container">
+
+          <!-- Pilih Mode -->
+          <div class="howto-block">
+            <div class="howto-block-title">
+              <div class="howto-icon-box purple">
+                <ion-icon name="grid-outline"></ion-icon>
+              </div>
+              <span>Pilih Mode Analisis</span>
+            </div>
+            <div class="howto-steps">
+              <div class="howto-step">
+                <span class="step-dot"></span>
+                <p><strong>Analisis Full</strong> — Gabungan body shape + proporsi torso. Perlu 7 ukuran sekaligus.</p>
+              </div>
+              <div class="howto-step">
+                <span class="step-dot"></span>
+                <p><strong>Body Shape</strong> — Mengenali bentuk tubuh (Hourglass, Pear, dll). Perlu 4 ukuran.</p>
+              </div>
+              <div class="howto-step">
+                <span class="step-dot"></span>
+                <p><strong>Proporsi Torso</strong> — Menganalisis proporsi kaki & torso. Perlu 3 ukuran.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="howto-divider"></div>
+
+          <!-- Panduan Input Body Shape -->
+          <div class="howto-block">
+            <div class="howto-block-title">
+              <div class="howto-icon-box orange">
+                <ion-icon name="shirt-outline"></ion-icon>
+              </div>
+              <span>Input Body Shape</span>
+            </div>
+            <div class="measure-list">
+              <div class="measure-item">
+                <span class="measure-num">1</span>
+                <div>
+                  <strong>Lebar bahu</strong>
+                  <p>Dari ujung bahu kiri ke kanan secara horizontal.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">2</span>
+                <div>
+                  <strong>Lingkar dada / bust</strong>
+                  <p>Melingkar di bagian dada yang paling lebar.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">3</span>
+                <div>
+                  <strong>Lingkar pinggang</strong>
+                  <p>Di bagian pinggang terkecil, sekitar 2–3 cm di atas pusar.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">4</span>
+                <div>
+                  <strong>Lingkar pinggul / hip</strong>
+                  <p>Melingkar di bagian pinggul yang paling lebar.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="howto-divider"></div>
+
+          <!-- Panduan Input Proporsi -->
+          <div class="howto-block">
+            <div class="howto-block-title">
+              <div class="howto-icon-box teal">
+                <ion-icon name="resize-outline"></ion-icon>
+              </div>
+              <span>Input Proporsi Torso</span>
+            </div>
+            <div class="measure-list">
+              <div class="measure-item">
+                <span class="measure-num">1</span>
+                <div>
+                  <strong>Tinggi badan</strong>
+                  <p>Dari telapak kaki hingga puncak kepala, tanpa alas kaki.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">2</span>
+                <div>
+                  <strong>Panjang torso</strong>
+                  <p>Dari tulang leher bawah (pangkal bahu) hingga garis pinggang.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">3</span>
+                <div>
+                  <strong>Panjang kaki</strong>
+                  <p>Dari lantai hingga titik pinggang alami.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="howto-divider"></div>
+
+          <!-- Membaca Hasil -->
+          <div class="howto-block">
+            <div class="howto-block-title">
+              <div class="howto-icon-box green">
+                <ion-icon name="bar-chart-outline"></ion-icon>
+              </div>
+              <span>Membaca Hasil</span>
+            </div>
+            <div class="howto-steps">
+              <div class="howto-step">
+                <span class="step-dot"></span>
+                <p><strong>WHR</strong> (Waist-to-Hip Ratio) — Rasio pinggang terhadap pinggul.</p>
+              </div>
+              <div class="howto-step">
+                <span class="step-dot"></span>
+                <p><strong>SHR</strong> (Shoulder-to-Hip Ratio) — Rasio bahu terhadap pinggul.</p>
+              </div>
+              <div class="howto-step">
+                <span class="step-dot"></span>
+                <p><strong>WSR</strong> (Waist-to-Shoulder Ratio) — Rasio pinggang terhadap bahu.</p>
+              </div>
+              <div class="howto-step">
+                <span class="step-dot"></span>
+                <p><strong>LHR</strong> (Leg-to-Height Ratio) — Rasio panjang kaki terhadap tinggi badan.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div class="howto-tip">
+            <ion-icon name="bulb-outline"></ion-icon>
+            <p>Gunakan <strong>pita ukur fleksibel</strong> dan minta bantuan orang lain. Berdiri tegak saat mengukur.
+              Semua ukuran dalam <strong>cm</strong>.</p>
+          </div>
+
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

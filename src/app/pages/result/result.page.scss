@@ -1,0 +1,459 @@
+:host {
+  /* Variabel Mode Terang */
+  --page-bg: #f6f6f6;
+  --card-bg-default: rgba(255, 255, 255, 0.493);
+  --text-main: #1a1a1a;
+  --text-sub: #424242;
+  --ion-color-primary: #1a1a1a;
+  --chip-bg: rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', 'Manrope', sans-serif;
+  /* Pastikan font elegan */
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    /** * VARIABEL MODE GELAP 
+     * Background: Biru Tua #001f3f
+     */
+    --page-bg: #000000;
+    --toolbar-bg: #0f0f0f91;
+    --card-bg-default: #42424260; // Biru sedikit lebih terang dari bg
+    --text-main: #fafafa;
+    --text-sub: #a2ced8;
+    --ion-color-primary: #a2ced8; // Aksen cerah di mode gelap
+    --chip-bg: rgba(255, 255, 255, 0.089);
+  }
+}
+
+ion-content {
+  --background: var(--page-bg);
+}
+
+ion-toolbar {
+  --background: var(--page-bg);
+  --color: var(--text-main);
+}
+
+
+ion-content {
+  --background: var(--page-bg);
+}
+
+.bento-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* BENTO GRID SYSTEM */
+.grid-bento {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.bento-card {
+  background: var(--card-bg-default);
+  border-radius: 24px;
+  padding: 20px;
+  border: 2px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &.full-width {
+    grid-column: span 2;
+  }
+
+  &.border-blue {
+    border-color: rgba(10, 182, 221, 0.3);
+  }
+
+  &.border-gold {
+    border-color: rgba(203, 198, 184, 0.3);
+  }
+}
+
+.overline {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.result-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 8px 0;
+  color: var(--primary-color);
+}
+
+.result-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 20px;
+
+  .badge {
+    background: var(--toolbar-bg);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .accuracy {
+    text-align: right;
+
+    .val {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary-color);
+    }
+
+    .lbl {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+  }
+}
+
+/* MINI CHART */
+.chart-box {
+  display: flex;
+  justify-content: center;
+
+  .circle-progress {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 4px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+  }
+}
+
+.chart-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin: 10px 0 2px;
+  text-align: center;
+}
+
+.chart-val {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.stat-card {
+  background: rgba(114, 114, 114, 0.11);
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+
+  .stat-name {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-sub);
+    text-transform: uppercase;
+  }
+
+  .stat-number {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 4px 0 0;
+  }
+}
+
+/* RECOMMENDATIONS */
+.rec-box {
+  border-radius: 24px;
+  padding: 20px;
+  margin-top: 20px;
+
+  &.positive {
+    background: rgba(155, 202, 212, 0.08);
+    border: 1px solid rgba(120, 163, 173, 0.2);
+
+    .box-header {
+      color: #2d5a64;
+    }
+  }
+
+  &.negative {
+    background: rgba(173, 120, 120, 0.08);
+    border: 1px solid rgba(173, 137, 120, 0.2);
+
+    .box-header {
+      color: #ba1a1a;
+    }
+  }
+
+  .box-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip-item {
+  background: rgba(112, 144, 180, 0.226);
+  padding: 8px 14px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--border-light);
+
+  ion-icon {
+    color: var(--primary-color);
+  }
+}
+
+.avoid-list {
+  padding-left: 2px;
+
+  li {
+    background: rgba(236, 100, 100, 0.226);
+    padding: 8px 14px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+
+    &::marker {
+      color: #ba1a1a;
+    }
+  }
+}
+
+/* ACTION BUTTONS */
+.action-grid {
+  display: flex; // Membuat tombol berjejer ke samping
+  gap: 10px; // Jarak antar tombol
+  width: 100%; // Memenuhi lebar kontainer
+  margin-top: 20px;
+  padding: 0 4px; // Padding tambahan agar tidak mepet ke pinggir kartu
+
+  button {
+    flex: 1; // Membuat ketiga tombol memiliki lebar yang sama rata
+    padding: 14px 8px; // Padding atas-bawah 14px, samping 8px agar teks tidak sesak
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 0.85rem; // Sedikit diperkecil agar teks 'Ukur Lagi' tidak turun ke bawah
+    display: flex;
+    flex-direction: column; // Ikon di atas, teks di bawah (Opsional, baca catatan di bawah)
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: none;
+    transition: all 0.2s ease;
+    white-space: nowrap; // Mencegah teks terpotong menjadi dua baris
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    ion-icon {
+      font-size: 1.2rem; // Ukuran ikon yang pas untuk 3 kolom
+    }
+  }
+
+  .btn-main {
+    &.save {
+      background: #042e30;
+      color: #fafafa;
+    }
+
+    &.is-saved {
+      background: #17a31b;
+      color: white;
+    }
+  }
+
+  .btn-sub {
+    background: #042e30; // Warna abu halus agar kontras dengan tombol utama
+    border: 1px solid rgba(var(--text-dark), 0.1);
+    color: #fafafa;
+
+    /* Jika ingin warna yang sama dengan tombol save tapi lebih muda: */
+    // background: rgba(74, 98, 103, 0.1);
+    // color: #4a6267;
+  }
+}
+
+.footer-note {
+  text-align: center;
+  padding: 40px 20px;
+
+  p {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.6;
+  }
+}
+
+.info-footer {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--chip-bg);
+  border-radius: 16px;
+  color: var(--text-sub);
+
+  ion-icon {
+    font-size: 1rem;
+    color: var(--ion-color-primary);
+  }
+
+  p {
+    font-size: 0.80rem;
+    margin: 0;
+    font-weight: 500;
+    font-style: italic;
+  }
+}
+
+// ===== MINIMAL HERO =====
+.result-hero {
+  padding: 8px 0 20px;
+  text-align: left;
+}
+
+.hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.hero-emoji {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.hero-overline {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-sub);
+  margin: 0 0 4px;
+}
+
+.hero-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0 0 16px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.hero-divider {
+  height: 1px;
+  background: rgba(128, 128, 128, 0.12);
+  margin-top: 4px;
+}
+
+.accuracy-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50px;
+  background: rgba(120, 163, 173, 0.12);
+  color: var(--text-sub);
+}
+
+// Badge gender
+.badge-gender {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  ion-icon {
+    font-size: 12px;
+  }
+
+  &.badge-male {
+    background: rgba(10, 120, 210, 0.15);
+    color: #0a78d2;
+  }
+
+  &.badge-female {
+    background: rgba(220, 80, 140, 0.15);
+    color: #dc508c;
+  }
+}
+
+// Judul statistik — bold, sesuai style halaman
+.section-title-bold {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 14px;
+}
+
+// Stat card aksen
+.stat-torso {
+  border-left: 3px solid rgba(10, 182, 221, 0.4) !important;
+}
+
+.stat-kaki {
+  border-left: 3px solid rgba(203, 198, 184, 0.6) !important;
+}
+
+.hero-subtext {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-sub);
+  margin: -10px 0 16px;
+  letter-spacing: 0.10em;
+}

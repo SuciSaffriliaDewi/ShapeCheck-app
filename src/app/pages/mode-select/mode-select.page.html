@@ -1,0 +1,163 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Mode Analisis</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showHowTo()">
+        <ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding bento-wrapper">
+
+    <header class="page-header">
+      <div class="gender-chip" [ngClass]="gender">
+        <ion-icon [name]="gender === 'pria' ? 'man' : 'woman'"></ion-icon>
+        <ion-label>{{ gender === 'pria' ? 'Pria' : 'Wanita' }}</ion-label>
+      </div>
+      <h1 class="main-title">Pilih Mode <span class="accent">Analisis</span></h1>
+      <p class="subtitle">Apa yang ingin kamu ketahui tentang tubuhmu hari ini?</p>
+    </header>
+
+    <div class="bento-grid">
+      <div class="bento-card" *ngFor="let mode of modes; let i = index" [ngClass]="{'hero-card': i === 0}"
+        (click)="selectMode(mode.key)" [style.--bg-custom]="mode.color">
+
+        <div class="card-overlay"></div>
+
+        <div class="card-content">
+          <div class="icon-wrap">
+            <ion-icon [name]="mode.icon" [style.color]="mode.iconColor"></ion-icon>
+          </div>
+
+          <div class="text-wrap">
+            <ion-badge *ngIf="i === 0">REKOMENDASI</ion-badge>
+            <h3>{{ mode.title }}</h3>
+            <p>{{ mode.desc }}</p>
+          </div>
+
+          <div class="action-icon">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-footer">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <p>Data fisik diolah secara privat untuk hasil yang presisi.</p>
+    </div>
+  </div>
+
+  <!-- Modal Cara Penggunaan -->
+  <ion-modal [isOpen]="showHowToModal" (didDismiss)="showHowToModal = false" [breakpoints]="[0, 0.75]"
+    [initialBreakpoint]="0.75">
+    <ng-template>
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-title>Cara Penggunaan</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="showHowToModal = false">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <div class="howto-body">
+
+          <div class="howto-section">
+            <div class="howto-section-title">
+              <ion-icon name="body-outline"></ion-icon>
+              <span>Analisis Full</span>
+            </div>
+            <p>Menggabungkan body shape dan proporsi torso sekaligus. Kamu perlu mengisi <strong>7 ukuran</strong>:
+              lebar bahu, lingkar dada, pinggang, pinggul, tinggi badan, panjang torso, dan panjang kaki.</p>
+          </div>
+
+          <div class="howto-section">
+            <div class="howto-section-title">
+              <ion-icon name="shirt-outline"></ion-icon>
+              <span>Body Shape</span>
+            </div>
+            <p>Menganalisis bentuk tubuhmu berdasarkan <strong>4 ukuran</strong>:</p>
+            <div class="measure-list">
+              <div class="measure-item">
+                <span class="measure-num">1</span>
+                <div>
+                  <strong>Lebar bahu</strong>
+                  <p>Ukur dari ujung bahu kiri ke kanan secara horizontal.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">2</span>
+                <div>
+                  <strong>Lingkar dada / bust</strong>
+                  <p>Ukur melingkar di bagian dada yang paling lebar.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">3</span>
+                <div>
+                  <strong>Lingkar pinggang</strong>
+                  <p>Ukur melingkar di bagian pinggang terkecil.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">4</span>
+                <div>
+                  <strong>Lingkar pinggul / hip</strong>
+                  <p>Ukur melingkar di bagian pinggul terlebar.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="howto-section">
+            <div class="howto-section-title">
+              <ion-icon name="resize-outline"></ion-icon>
+              <span>Proporsi Torso</span>
+            </div>
+            <p>Menganalisis proporsi kaki dan torso berdasarkan <strong>3 ukuran</strong>:</p>
+            <div class="measure-list">
+              <div class="measure-item">
+                <span class="measure-num">1</span>
+                <div>
+                  <strong>Tinggi badan</strong>
+                  <p>Ukur dari telapak kaki hingga puncak kepala.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">2</span>
+                <div>
+                  <strong>Panjang torso</strong>
+                  <p>Ukur dari bahu (tulang leher bawah) hingga pinggang.</p>
+                </div>
+              </div>
+              <div class="measure-item">
+                <span class="measure-num">3</span>
+                <div>
+                  <strong>Panjang kaki</strong>
+                  <p>Ukur dari lantai hingga titik pinggang.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="howto-tip">
+            <ion-icon name="bulb-outline"></ion-icon>
+            <p>Gunakan <strong>pita ukur</strong> untuk hasil yang akurat. Pastikan berdiri tegak saat mengukur.</p>
+          </div>
+
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

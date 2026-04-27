@@ -1,0 +1,202 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Tersimpan</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="clearAll()" *ngIf="historyList.length > 0">
+        <ion-icon name="trash-outline" style="color: #ea4335; font-size: 22px;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="bento-wrapper ion-padding">
+
+    <header class="page-header">
+      <div class="gender-chip">
+        <ion-icon name="bookmark"></ion-icon>
+        <ion-label>Riwayat Analisis</ion-label>
+      </div>
+      <h1 class="main-title">Riwayat Tersimpan</h1>
+      <p class="subtitle">Berisi hasil analisis yang telah kamu simpan.</p>
+    </header>
+
+    <!-- Empty state -->
+    <div class="bento-grid" *ngIf="historyList.length === 0">
+      <div class="bento-card empty-card-style">
+        <div class="card-content">
+          <div class="icon-wrap empty-icon">
+            <ion-icon name="bookmark-outline"></ion-icon>
+          </div>
+          <div class="text-wrap">
+            <h3>Belum Ada Data Tersimpan</h3>
+            <p>Lakukan analisis dan tekan tombol <strong>"Simpan Hasil"</strong> untuk menyimpan hasilnya di sini.</p>
+          </div>
+          <button class="btn-action-primary" (click)="goBack()">
+            Mulai Analisis
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- List -->
+    <div class="bento-grid" *ngIf="historyList.length > 0">
+      <div class="bento-card" *ngFor="let item of historyList" [class.card-male]="item.gender === 'pria'"
+        [class.card-female]="item.gender === 'wanita'" (click)="openDetail(item)">
+
+        <div class="card-content">
+          <div class="top-row">
+            <div class="emoji-wrap">{{ item.emoji || '📏' }}</div>
+            <div class="top-right">
+              <span class="gender-tag" [class.male]="item.gender === 'pria'" [class.female]="item.gender === 'wanita'">
+                <ion-icon [name]="item.gender === 'pria' ? 'man' : 'woman'"></ion-icon>
+                {{ item.gender === 'pria' ? 'Pria' : 'Wanita' }}
+              </span>
+              <button class="btn-delete-item" (click)="deleteItem(item.id); $event.stopPropagation()">
+                <ion-icon name="close-circle-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="text-wrap">
+            <h3>{{ item.shape }}</h3>
+            <span class="mode-badge">{{ getModeLabel(item.mode) }}</span>
+            <p class="date-label">{{ item.date }}</p>
+          </div>
+
+          <!-- Tap hint -->
+          <div class="tap-hint">
+            <ion-icon name="eye-outline"></ion-icon>
+            <span>Ketuk untuk detail</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+
+<!-- Modal Detail -->
+<ion-modal [isOpen]="showDetailModal" (didDismiss)="closeDetail()" [initialBreakpoint]="0.92"
+  [breakpoints]="[0, 0.92, 1]">
+  <ng-template>
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-title style="font-size: 15px; font-weight: 700;">Detail Hasil</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeDetail()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="modal-content" *ngIf="selectedItem">
+      <div class="modal-body">
+
+        <!-- Header -->
+        <div class="modal-header-card" [class.modal-card-male]="selectedItem.gender === 'pria'"
+          [class.modal-card-female]="selectedItem.gender === 'wanita'">
+          <div class="modal-emoji">{{ selectedItem.emoji || '📏' }}</div>
+          <div>
+            <h2 class="modal-shape">{{ selectedItem.shape }}</h2>
+            <div class="modal-meta">
+              <span class="modal-badge">{{ getModeLabel(selectedItem.mode) }}</span>
+              <span class="modal-badge">{{ selectedItem.gender === 'pria' ? 'Pria' : 'Wanita' }}</span>
+            </div>
+            <p class="modal-date">{{ selectedItem.date }}</p>
+          </div>
+        </div>
+
+        <!-- Deskripsi body shape -->
+        <div class="modal-section" *ngIf="selectedItem.bodyShape">
+          <h4 class="modal-section-title">
+            <ion-icon name="body-outline"></ion-icon> Body Shape
+          </h4>
+          <p class="modal-desc">{{ selectedItem.bodyShape.deskripsi }}</p>
+
+          <!-- Rasio -->
+          <div class="modal-ratio-row" *ngIf="selectedItem.bodyShape.ratios">
+            <div class="modal-ratio-item">
+              <span class="modal-ratio-val">{{ selectedItem.bodyShape.ratios.WHR }}</span>
+              <span class="modal-ratio-lbl">WHR</span>
+            </div>
+            <div class="modal-ratio-item">
+              <span class="modal-ratio-val">{{ selectedItem.bodyShape.ratios.SHR }}</span>
+              <span class="modal-ratio-lbl">SHR</span>
+            </div>
+            <div class="modal-ratio-item">
+              <span class="modal-ratio-val">{{ selectedItem.bodyShape.ratios.WSR }}</span>
+              <span class="modal-ratio-lbl">WSR</span>
+            </div>
+          </div>
+
+          <!-- Rekomendasi cocok -->
+          <div class="modal-rec positive">
+            <h5><ion-icon name="checkmark-circle"></ion-icon> Recommended</h5>
+            <div class="modal-tags">
+              <span class="modal-tag cocok" *ngFor="let item of selectedItem.bodyShape.cocok">{{ item }}</span>
+            </div>
+          </div>
+
+          <!-- Hindari -->
+          <div class="modal-rec negative">
+            <h5><ion-icon name="close-circle"></ion-icon> Not Recommended</h5>
+            <ul class="modal-avoid">
+              <li *ngFor="let item of selectedItem.bodyShape.hindari">{{ item }}</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="modal-divider" *ngIf="selectedItem.bodyShape && selectedItem.proporsi"></div>
+
+        <!-- Deskripsi proporsi -->
+        <div class="modal-section" *ngIf="selectedItem.proporsi">
+          <h4 class="modal-section-title">
+            <ion-icon name="resize-outline"></ion-icon> Proporsi Torso
+          </h4>
+          <p class="modal-desc">{{ selectedItem.proporsi.deskripsi }}</p>
+
+          <!-- Stats -->
+          <div class="modal-stats-row">
+            <div class="modal-stat">
+              <span class="modal-stat-val">{{ selectedItem.proporsi.LHR }}</span>
+              <span class="modal-stat-lbl">LHR</span>
+            </div>
+            <div class="modal-stat">
+              <span class="modal-stat-val">{{ selectedItem.proporsi.torsoPercentage }}%</span>
+              <span class="modal-stat-lbl">Torso</span>
+            </div>
+            <div class="modal-stat">
+              <span class="modal-stat-val">{{ selectedItem.proporsi.panjangKakiPercentage }}%</span>
+              <span class="modal-stat-lbl">Kaki</span>
+            </div>
+          </div>
+
+          <!-- Tips proporsi -->
+          <div class="modal-rec positive">
+            <h5><ion-icon name="checkmark-circle"></ion-icon> Tips Styling</h5>
+            <div class="modal-tags">
+              <span class="modal-tag cocok" *ngFor="let item of selectedItem.proporsi.cocok">{{ item }}</span>
+            </div>
+          </div>
+
+          <div class="modal-rec negative">
+            <h5><ion-icon name="close-circle"></ion-icon> Hindari</h5>
+            <ul class="modal-avoid">
+              <li *ngFor="let item of selectedItem.proporsi.hindari">{{ item }}</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer-note">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <p>Analisis ini bersifat sebagai referensi. Setiap tubuh memiliki keunikan masing-masing.</p>
+        </div>
+
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

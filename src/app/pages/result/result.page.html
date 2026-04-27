@@ -1,0 +1,204 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Hasil Analisis</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding bento-wrapper">
+
+    <!-- MODE: BODY SHAPE ONLY -->
+    <section class="result-section" *ngIf="mode === 'bodyshape'">
+
+      <!-- Minimal header -->
+      <div class="result-hero">
+        <div class="hero-top">
+          <span class="badge-gender" [class.badge-male]="gender === 'pria'" [class.badge-female]="gender === 'wanita'">
+            <ion-icon [name]="gender === 'pria' ? 'man' : 'woman'"></ion-icon>
+            {{ gender === 'pria' ? 'Pria' : 'Wanita' }}
+          </span>
+          <span class="accuracy-pill">92% Akurasi</span>
+        </div>
+        <p class="hero-overline">Tipe Tubuh Anda</p>
+        <div class="hero-emoji">{{ bodyShapeResult?.emoji }}</div>
+        <h1 class="hero-title">{{ bodyShapeResult?.shape }}</h1>
+        <p class="hero-subtext">{{ bodyShapeResult?.subtext }}</p>
+        <div class="hero-divider"></div>
+      </div>
+
+      <!-- Card deskripsi -->
+      <div class="bento-card border-blue full-width">
+        <span class="overline">Deskripsi</span>
+        <p class="result-desc" style="margin-top: 8px;">{{ bodyShapeResult?.deskripsi }}</p>
+      </div>
+
+    </section>
+
+    <!-- MODE: PROPORSI ONLY -->
+    <section class="result-section" *ngIf="mode === 'proporsi'">
+
+      <!-- Minimal header -->
+      <div class="result-hero">
+        <div class="hero-top">
+          <span class="badge-gender" [class.badge-male]="gender === 'pria'" [class.badge-female]="gender === 'wanita'">
+            <ion-icon [name]="gender === 'pria' ? 'man' : 'woman'"></ion-icon>
+            {{ gender === 'pria' ? 'Pria' : 'Wanita' }}
+          </span>
+        </div>
+        <div class="hero-emoji">📏</div>
+        <p class="hero-overline">Proporsi Tubuh</p>
+        <h1 class="hero-title">{{ proporsiResult?.label }}</h1>
+        <div class="hero-divider"></div>
+      </div>
+
+      <!-- Card deskripsi -->
+      <div class="bento-card border-gold full-width">
+        <span class="overline">Deskripsi</span>
+        <p class="result-desc" style="margin-top: 8px;">{{ proporsiResult?.deskripsi }}</p>
+      </div>
+
+    </section>
+
+    <!-- MODE: FULL -->
+    <section *ngIf="mode === 'full'">
+
+      <!-- Minimal header body shape -->
+      <div class="result-hero">
+        <div class="hero-top">
+          <span class="badge-gender" [class.badge-male]="gender === 'pria'" [class.badge-female]="gender === 'wanita'">
+            <ion-icon [name]="gender === 'pria' ? 'man' : 'woman'"></ion-icon>
+            {{ gender === 'pria' ? 'Pria' : 'Wanita' }}
+          </span>
+          <span class="accuracy-pill">92% Akurasi</span>
+        </div>
+        <p class="hero-overline">Tipe Tubuh</p>
+        <div class="hero-emoji">{{ bodyShapeResult?.emoji }}</div>
+        <h1 class="hero-title">{{ bodyShapeResult?.shape }}</h1>
+        <p class="hero-subtext">{{ bodyShapeResult?.subtext }}</p>
+        <div class="hero-divider"></div>
+      </div>
+
+      <!-- Card deskripsi body shape -->
+      <div class="bento-card border-blue full-width" style="margin-bottom: 24px;">
+        <span class="overline">Deskripsi</span>
+        <p class="result-desc" style="margin-top: 8px;">{{ bodyShapeResult?.deskripsi }}</p>
+      </div>
+
+      <!-- Minimal header proporsi -->
+      <div class="result-hero">
+        <div class="hero-top">
+          <span class="overline" style="font-size: 0.6rem;">Proporsi Tubuh</span>
+        </div>
+        <div class="hero-emoji">📏</div>
+        <p class="hero-overline">Proporsi Tubuh</p>
+        <h1 class="hero-title" style="font-size: 1.6rem;">{{ proporsiResult?.label }}</h1>
+        <div class="hero-divider"></div>
+      </div>
+
+      <!-- Card deskripsi proporsi -->
+      <div class="bento-card border-gold full-width">
+        <span class="overline">Deskripsi</span>
+        <p class="result-desc" style="margin-top: 8px;">{{ proporsiResult?.deskripsi }}</p>
+      </div>
+
+    </section>
+
+    <br>
+
+    <!-- STATS -->
+    <section class="section-wrap" *ngIf="mode === 'proporsi' || mode === 'full'">
+      <div class="bento-card border-gold full-width">
+        <h3 class="section-title-bold">Statistik Prosentase</h3>
+        <div class="stats-grid">
+          <div class="stat-card stat-torso">
+            <span class="stat-name">Torso</span>
+            <p class="stat-number">{{ proporsiResult?.torsoPercentage }}%</p>
+          </div>
+          <div class="stat-card stat-kaki">
+            <span class="stat-name">Kaki</span>
+            <p class="stat-number">{{ proporsiResult?.panjangKakiPercentage }}%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REKOMENDASI -->
+    <section class="section-wrap">
+
+      <div class="rec-box positive">
+        <h3 class="box-header">
+          <ion-icon name="checkmark-circle"></ion-icon> Rekomendasi
+        </h3>
+        <div class="tag-container">
+          <div class="chip-item"
+            *ngFor="let item of (mode === 'proporsi' ? proporsiResult?.cocok : bodyShapeResult?.cocok)">
+            <ion-icon name="shirt-outline"></ion-icon>
+            <span>{{ item }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-box negative">
+        <h3 class="box-header">
+          <ion-icon name="close-circle"></ion-icon> Tidak di Rekomendasi
+        </h3>
+        <ul class="avoid-list">
+          <li *ngFor="let item of (mode === 'proporsi' ? proporsiResult?.hindari : bodyShapeResult?.hindari)">
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+
+      <ng-container *ngIf="mode === 'full'">
+        <div class="rec-box positive" style="margin-top: 12px;">
+          <h3 class="box-header">
+            <ion-icon name="checkmark-circle"></ion-icon> Tips Proporsi
+          </h3>
+          <div class="tag-container">
+            <div class="chip-item" *ngFor="let item of proporsiResult?.cocok">
+              <ion-icon name="resize-outline"></ion-icon>
+              <span>{{ item }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rec-box negative" style="margin-top: 12px;">
+          <h3 class="box-header">
+            <ion-icon name="close-circle"></ion-icon> Hindari (Proporsi)
+          </h3>
+          <ul class="avoid-list">
+            <li *ngFor="let item of proporsiResult?.hindari">{{ item }}</li>
+          </ul>
+        </div>
+      </ng-container>
+
+    </section>
+
+    <!-- ACTION BUTTONS -->
+    <section class="action-grid">
+      <button class="btn-main save" (click)="saveResult()" [class.is-saved]="isSaved">
+        <ion-icon [name]="isSaved ? 'checkmark-done' : 'bookmark-outline'"></ion-icon>
+        {{ isSaved ? 'Saved' : 'Save' }}
+      </button>
+      <button class="btn-sub" (click)="goBack()">
+        <ion-icon name="refresh-outline"></ion-icon> Ukur Lagi
+      </button>
+      <button class="btn-sub" (click)="restart()">
+        <ion-icon name="home-outline"></ion-icon> Home
+      </button>
+    </section>
+
+    <!-- Footer -->
+    <div class="info-footer">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <p>Hasil ini hanya sebagai referensi. Setiap tubuh memiliki keunikan masing-masing,
+        Tetap percaya diri dan cintai tubuh Anda.</p>
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>ShapeCheck</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding bento-wrapper">
+
+    <header class="page-header">
+      <div class="gender-chip">
+        <ion-icon name="sparkles"></ion-icon>
+        <ion-label>Temukan yang Paling Cocok</ion-label>
+      </div>
+      <h1 class="main-title">Pilih <span class="accent">Gender</span></h1>
+      <p class="subtitle">Agar hasil analisis lebih akurat sesuai tubuhmu.</p>
+    </header>
+
+    <div class="bento-grid">
+      <div class="bento-card" *ngFor="let option of genderOptions" [ngClass]="{'active': selectedGender === option.key}"
+        (click)="selectGender(option.key)" [style.--bg-custom]="option.color">
+
+        <div class="card-overlay"></div>
+
+        <div class="card-content">
+          <div class="icon-wrap">
+            <ion-icon [name]="option.icon" [style.color]="option.iconColor"></ion-icon>
+          </div>
+
+          <div class="text-wrap">
+            <h3>{{ option.title }}</h3>
+            <p>{{ option.desc }}</p>
+          </div>
+
+          <div class="action-icon">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-footer">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <p>Privat & membantu menyesuaikan hasil.</p>
+    </div>
+
+  </div>
+</ion-content>
