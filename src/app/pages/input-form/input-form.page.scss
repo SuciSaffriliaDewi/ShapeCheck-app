@@ -177,21 +177,84 @@ ion-toolbar {
   padding: 16px 20px 40px;
 }
 
-.howto-section-title {
+.howto-container {
+  padding: 16px 20px 48px;
+}
+
+.howto-block {
+  margin-bottom: 4px;
+}
+
+.howto-block-title {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-
-  ion-icon {
-    font-size: 18px;
-    color: #4285f4;
-  }
+  gap: 10px;
+  margin-bottom: 14px;
 
   span {
     font-size: 15px;
-    font-weight: 600;
-    color: #2d2d2d;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+}
+
+.howto-icon-box {
+  width: 36px;
+  height: 36px;
+  padding-right: 4px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+
+  &.purple {
+    background: var(--toolbar-bg);
+    color: #8a4fff;
+  }
+
+  &.orange {
+    background: var(--toolbar-bg);
+    color: #ff9500;
+  }
+
+  &.teal {
+    background: var(--toolbar-bg);
+    color: #00bcd4;
+  }
+
+  &.green {
+    background: var(--toolbar-bg);
+    color: #2ecc71;
+  }
+}
+
+.howto-steps {
+  padding-left: 4px;
+}
+
+.howto-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  .step-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-sub);
+    flex-shrink: 0;
+    margin-top: 7px;
+    opacity: 0.5;
+  }
+
+  p {
+    font-size: 13px;
+    color: var(--text-sub);
+    line-height: 1.6;
+    margin: 0;
   }
 }
 
@@ -199,7 +262,7 @@ ion-toolbar {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 16px;
+  padding-left: 4px;
 }
 
 .measure-item {
@@ -208,12 +271,12 @@ ion-toolbar {
   gap: 12px;
 
   .measure-num {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    background: #1a1a2e;
-    color: white;
-    font-size: 12px;
+    background: var(--text-main);
+    color: var(--page-bg);
+    font-size: 11px;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -224,38 +287,45 @@ ion-toolbar {
 
   strong {
     font-size: 13px;
-    font-weight: 600;
-    color: #2d2d2d;
+    font-weight: 700;
+    color: var(--text-main);
     display: block;
     margin-bottom: 2px;
   }
 
   p {
     font-size: 12px;
-    color: #aaa;
+    color: var(--text-sub);
     margin: 0;
     line-height: 1.5;
   }
+}
+
+.howto-divider {
+  height: 1px;
+  background: rgba(128, 128, 128, 0.12);
+  margin: 16px 0;
 }
 
 .howto-tip {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  background: #fff8e1;
-  border-radius: 12px;
+  background: rgba(249, 168, 37, 0.1);
+  border-radius: 14px;
   padding: 14px;
-  margin-top: 8px;
+  margin-top: 16px;
 
   ion-icon {
     font-size: 20px;
     color: #f9a825;
     flex-shrink: 0;
+    margin-top: 1px;
   }
 
   p {
     font-size: 13px;
-    color: #666;
+    color: var(--text-sub);
     line-height: 1.6;
     margin: 0;
   }

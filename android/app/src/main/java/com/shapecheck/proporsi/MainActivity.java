@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.shapecheck.proporsi;
 
 import com.getcapacitor.BridgeActivity;
 
